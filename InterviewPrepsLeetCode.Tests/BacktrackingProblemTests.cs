@@ -1,4 +1,5 @@
 ﻿using InterviewPrepsLeetCode.Backtracking;
+using InterviewPrepsLeetCode.GraphAlgorithms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,45 @@ namespace InterviewPrepsLeetCode.Tests
                 new int[]{ },
                 new List<IList<int>>()
             };
+        }
+        public static IEnumerable<object[]> CombinationSumCases()
+        {
+            yield return new object[]
+            {
+            new int[]
+            {
+                2,3,6,7
+            },
+            7,
+            new List<IList<int>>
+            (
+                [[2,2,3],[7]]
+             )
+            };
+            yield return new object[]
+          {
+            new int[]
+            {
+                2,3,5
+            },
+            8,
+            new List<IList<int>>
+            (
+                [[2,2,2,2],[2,3,3],[3,5]]
+             )
+          };
+            yield return new object[]
+           {
+            new int[]
+            {
+                2
+            },
+            1,
+            new List<IList<int>>
+            (
+                []
+             )
+           };
         }
         public static IEnumerable<object[]> LetterCombinations_TestData()
         {
@@ -45,6 +85,17 @@ namespace InterviewPrepsLeetCode.Tests
         {
             var result = BacktrackingProblems.LetterCombinations(input);
             Assert.Equal(expected,result);
+        }
+        [Theory]
+        [MemberData(nameof(CombinationSumCases))]
+        public void CombinationSum_Returns_CombinationListOfList(int[] array, int target, IList<IList<int>> expected)
+        {
+            var result = BacktrackingProblems.CombinationSum(array, target);
+            
+            Assert.All(expected, list =>
+            {
+                result.Contains(list);
+            });
         }
     }
 }

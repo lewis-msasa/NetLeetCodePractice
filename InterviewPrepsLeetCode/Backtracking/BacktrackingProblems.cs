@@ -88,5 +88,54 @@ namespace InterviewPrepsLeetCode.Backtracking
                 current.Remove(current.Length-1,1);
             }
         }
+
+        /*
+        * Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target.
+        * You may return the combinations in any order.
+        * The same number may be chosen from candidates an unlimited number of times. 
+        * Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+        *  At every Position:
+        *  Choose candidate
+               ↓
+           Reduce target
+               ↓
+           Continue searching
+               ↓
+           Backtrack
+        * 
+        * 
+        */
+        public static IList<IList<int>> CombinationSum(int[] candidates, int target)
+        {
+            var result = new List<IList<int>>();
+
+            Backtrack(0, new List<int>(), candidates, target, result);
+
+
+            return result;
+        }
+
+        private static void Backtrack(int start, List<int> current, int[] candidates, int remaining, List<IList<int>> result)
+        {
+            //found target
+            if (remaining == 0)
+            {
+                result.Add([.. current]);
+                return;
+            }
+            //no valid combinations possible
+            if (remaining < 0) return;
+
+            for (int i = 0; i < candidates.Length; i++)
+            {
+                int candidate = candidates[i];
+                current.Add(candidate);
+                //i not i+1
+                Backtrack(i, current, candidates, remaining - candidate, result);
+                //undo
+                current.RemoveAt(current.Count - 1);
+            }
+
+        }
     }
 }

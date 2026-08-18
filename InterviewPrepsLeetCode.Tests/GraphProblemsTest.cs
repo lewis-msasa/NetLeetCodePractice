@@ -30,6 +30,7 @@ namespace InterviewPrepsLeetCode.Tests
             }
             };
         }
+       
         public static IEnumerable<object[]> GridCases()
         {
             yield return new object[]
@@ -56,6 +57,38 @@ namespace InterviewPrepsLeetCode.Tests
             3
             };
         }
+        public static IEnumerable<object[]> BoardCases()
+        {
+            yield return new object[]
+            {
+            new char[][]
+            {
+                ['A','B','C','E'],['S','F','C','S'],['A','D','E','E']
+            },
+            "ABCCED",
+            true
+            };
+            yield return new object[]
+           {
+            new char[][]
+            {
+                ['A','B','C','E'],['S','F','C','S'],['A','D','E','E']
+            },
+            "SEE",
+            true
+           };
+            yield return new object[]
+           {
+            new char[][]
+            {
+                ['A','B','C','E'],['S','F','C','S'],['A','D','E','E']
+            },
+            "ABCB",
+            false
+           };
+
+
+        }
         [Theory]
         [MemberData(nameof(GridCases))]
         public void NumIslands_Return_NumberOfIslands(char[][] arr, int expected) {
@@ -69,5 +102,13 @@ namespace InterviewPrepsLeetCode.Tests
             var result = GraphProblems.FloodFill(image,sr,sc,color);
             Assert.Equal(expected, result);
         }
+        [Theory]
+        [MemberData(nameof(BoardCases))]
+        public void Exist_ReturnTrueIfFound(char[][]board, string word, bool expected)
+        {
+            var result = GraphProblems.Exist(board, word);
+            Assert.Equal(expected, result);
+        }
+        
     }
 }
